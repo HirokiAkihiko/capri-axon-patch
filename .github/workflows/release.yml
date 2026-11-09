@@ -1,0 +1,30 @@
+name: Publish APK release
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish release with the APK
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: capri-1.40-axon
+          name: Capri 1.40 — Axon mod (Notasakin build + AxonAgent provider)
+          body: |
+            Patched build of Capri 1.40 (app.capri by Notasakin) with one added
+            brain provider: AxonAgent (https://api.axonagent.xyz/v1), recognised
+            by its limo- key prefix. See README.md.
+
+            Signed with a mod key (not the original Capri key): uninstall the
+            existing Capri first. SHA-256 of the APK:
+            39c115eb478d961546132b65402b77d9647107d5b4bcea8b0f8be06a21b7ad90
+          files: Capri-1.40-axon.apk
